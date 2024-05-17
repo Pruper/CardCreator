@@ -35,8 +35,12 @@ function generateCard() {
     let cardName = document.getElementById("nameInput").value;
     let cardHealth = document.getElementById("healthInput").value;
     let cardAttack = document.getElementById("attackInput").value;
+    let cardShowStats = !(cardHealth.length < 1 && cardAttack.length < 1);
     let cardAbility = document.getElementById("abilityInput").value;
     let cardDesc = document.getElementById("abilityDescInput").value;
+
+    let cardImageTop = CARD_IMAGE_TOP;
+    if (!cardShowStats) cardImageTop -= 65;
 
     ctx.fillStyle = CARD_BACKGROUND_COLOR;
     ctx.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
@@ -47,23 +51,25 @@ function generateCard() {
 
     if (cardImage === null) {
         ctx.fillStyle = cardColor;
-        ctx.fillRect(CARD_IMAGE_LEFT, CARD_IMAGE_TOP, CARD_IMAGE_SIZE, CARD_IMAGE_SIZE);
+        ctx.fillRect(CARD_IMAGE_LEFT, cardImageTop, CARD_IMAGE_SIZE, CARD_IMAGE_SIZE);
     } else {
-        ctx.drawImage(cardImage, CARD_IMAGE_LEFT, CARD_IMAGE_TOP, CARD_IMAGE_SIZE, CARD_IMAGE_SIZE)
+        ctx.drawImage(cardImage, CARD_IMAGE_LEFT, cardImageTop, CARD_IMAGE_SIZE, CARD_IMAGE_SIZE)
     }
 
     ctx.font = `bold ${Math.min(48, getFontSizeToFit(cardName, "Calibri", CARD_WIDTH - ((CARD_BORDER_THICKNESS + 10) * 2), "bold"))}px Calibri`;
     ctx.fillStyle = "black";
     ctx.fillText(cardName, (CARD_WIDTH - ctx.measureText(cardName).width) / 2, CARD_NAME_TOP);
 
-    ctx.font = "24px Calibri";
-    ctx.fillStyle = "black";
-    ctx.fillText("Health: " + cardHealth, 15, CARD_NAME_TOP + 35);
-    ctx.fillText("Attack: " + cardAttack, 15, CARD_NAME_TOP + 65);
+    if (cardShowStats) {
+        ctx.font = "24px Calibri";
+        ctx.fillStyle = "black";
+        ctx.fillText("Health: " + cardHealth, 15, CARD_NAME_TOP + 35);
+        ctx.fillText("Attack: " + cardAttack, 15, CARD_NAME_TOP + 65);
+    }
 
-    ctx.font = `bold ${Math.min(36, getFontSizeToFit(cardAbility, "Calibri", CARD_WIDTH - ((CARD_BORDER_THICKNESS + 10) * 2), "bold"))}px Calibri`;
+    ctx.font = `bold ${Math.min(32, getFontSizeToFit(cardAbility, "Calibri", CARD_WIDTH - ((CARD_BORDER_THICKNESS + 10) * 2), "bold"))}px Calibri`;
     ctx.fillStyle = "black";
-    ctx.fillText(cardAbility, (CARD_WIDTH - ctx.measureText(cardAbility).width) / 2, CARD_IMAGE_TOP + CARD_IMAGE_SIZE + 30);
+    ctx.fillText(cardAbility, (CARD_WIDTH - ctx.measureText(cardAbility).width) / 2, cardImageTop + CARD_IMAGE_SIZE + 30);
 
     ctx.font = "20px Calibri";
     ctx.fillStyle = "black";
@@ -83,7 +89,7 @@ function generateCard() {
     descriptionLines.push(currentLine);
 
     for (var i = 0; i < descriptionLines.length; i++) {
-        ctx.fillText(descriptionLines[i], 15, CARD_IMAGE_TOP + CARD_IMAGE_SIZE + 30 + 40 + (24 * i));
+        ctx.fillText(descriptionLines[i], 15, cardImageTop + CARD_IMAGE_SIZE + 30 + 23 + (24 * i));
     }
 }
 
