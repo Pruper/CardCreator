@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makh's Card Thing</title>
+</head>
+
+<body>
+    <canvas id="card" height="500px" width="300px"></canvas>
+    <br>
+    <button id="generateButton" onclick="generateCard()">Generate Card</button>
+
+    <p>Card inputs</p>
+    <input type="color" id="colorInput" value="#00ffff"> <label for="colorInput">Card Color (border) - default: #00ffff</label>
+    <br><br>
+    <input type="text" id="nameInput"> <label for="nameInput">Name</label>
+    <br><br>
+    <input type="text" id="healthInput"> <label for="healthInput">Health</label>
+    <br>
+    <input type="text" id="attackInput"> <label for="attackInput">Attack</label>
+    <br><br>
+    <input type="text" id="abilityInput"> <label for="abilityInput">Ability Name</label>
+    <br>
+    <textarea style="white-space:pre;resize:none;overflow:hidden;" cols="30" rows="4" id="abilityDescInput"></textarea> <label for="abilityDescInput">Ability Description</label>
+
+    <p>Upload an image</p>
+    <input id="imageInput" type="file" accept="image/*">
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
